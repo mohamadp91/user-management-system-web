@@ -7,6 +7,7 @@ import styled from 'styled-components';
 import TabPanel from "@material-ui/lab/TabPanel";
 import Fab from "@material-ui/core/Fab";
 import AddIcon from '@material-ui/icons/Add';
+import UsersList from "./UsersList";
 
 const AppBarStyled = styled(AppBar)`
         background : #222;
@@ -21,6 +22,7 @@ const FabStyled = styled(Fab)`
     right: 16px;
     bottom: 16px;
 `;
+
 
 export default function NavBar() {
 
@@ -40,6 +42,7 @@ export default function NavBar() {
                 </TabList>
             </AppBarStyled>
             <TabPanel value="1">
+                <UsersList/>
                 <FabStyled color="primary">
                     <AddIcon/>
                 </FabStyled>

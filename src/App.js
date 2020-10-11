@@ -4,11 +4,9 @@ import {StylesProvider} from "@material-ui/core/styles";
 
 function App() {
     return (
-        <div className="App">
-            <StylesProvider injectFirst>
-                <NavBar/>
-            </StylesProvider>
-        </div>
+        <StylesProvider injectFirst>
+            <NavBar/>
+        </StylesProvider>
     );
 }
 
