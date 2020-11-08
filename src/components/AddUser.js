@@ -6,6 +6,10 @@ import styled from "styled-components"
 import { InputLabel } from "@material-ui/core"
 import FormGroup from "@material-ui/core/FormGroup"
 import FormControl from "@material-ui/core/FormControl"
+import { useDispatch } from "react-redux"
+import uuid from "react-uuid"
+
+import { ADD_USER } from "../state/UsersReducer"
 
 const ContainerStyled = styled(Container)`
 	flex-grow: 1;
@@ -36,17 +40,20 @@ const FormControlButtonStyled = styled(FormControl)`
 	justify-content: space-between;
 `
 
-function AddUser({ handleCancel, setUsers }) {
+function AddUser({ handleCancel }) {
 	const [firstName, setFirstName] = useState(null)
 	const [lastName, setLastName] = useState(null)
 	const [emailAddress, setEmailAddress] = useState(null)
 	const [dateCreated, setDateCreated] = useState(null)
+	const [id, setId] = useState(null)
+	const dispatch = useDispatch()
 
 	const clearUserInputs = () => {
 		setFirstName(null)
 		setLastName(null)
 		setEmailAddress(null)
 		setDateCreated(null)
+		setId(null)
 	}
 
 	const cancel = () => {
@@ -58,15 +65,13 @@ function AddUser({ handleCancel, setUsers }) {
 
 	const handleSubmit = () => {
 		const user = {
+			id: nullToEmpty(uuid()),
 			firstName: nullToEmpty(firstName),
 			lastName: nullToEmpty(lastName),
 			emailAddress: nullToEmpty(emailAddress),
 			dateCreated: nullToEmpty(new Date().toLocaleString()),
 		}
-		setUsers((users) => {
-			if (!users) return [user]
-			return [...users, user]
-		})
+		dispatch({ type: ADD_USER, payload: user })
 		clearUserInputs()
 		handleCancel()
 	}

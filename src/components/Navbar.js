@@ -5,6 +5,7 @@ import TabContext from "@material-ui/lab/TabContext"
 import TabList from "@material-ui/lab/TabList"
 import styled from "styled-components"
 import TabPanel from "@material-ui/lab/TabPanel"
+
 import UsersTab from "./UsersTab"
 
 const AppBarStyled = styled(AppBar)`
@@ -18,8 +19,6 @@ const TabContextStyled = styled(TabContext)`
 export default function NavBar() {
 	const [tabIndex, setTabIndex] = useState(String(1))
 
-	const [users, setUsers] = useState(null)
-
 	return (
 		<TabContextStyled value={tabIndex}>
 			<AppBarStyled position="static">
@@ -30,7 +29,7 @@ export default function NavBar() {
 				</TabList>
 			</AppBarStyled>
 			<TabPanel value="1">
-				<UsersTab users={users} setUsers={setUsers} />
+				<UsersTab />
 			</TabPanel>
 		</TabContextStyled>
 	)
