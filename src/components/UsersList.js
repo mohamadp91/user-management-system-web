@@ -36,7 +36,7 @@ const Container = styled.div`
 	justify-content: center;
 `
 
-export default function UsersList() {
+export const UsersList = () => {
 	const users = useSelector((users) => users)
 
 	return (
@@ -51,23 +51,32 @@ export default function UsersList() {
 							<TableHeadCellStyled>Date Modified</TableHeadCellStyled>
 						</TableRow>
 					</TableHead>
-					{users &&
-						users.map((user) => (
-							<TableBody key={user.id}>
-								<TableRow>
-									<TableBodyCellStyled component="th" scope="row">
+					<TableBody>
+						{users &&
+							users.map((user) => (
+								<TableRow key={user.id}>
+									<TableBodyCellStyled
+										component="th"
+										scope="row"
+										data-test-id={`name-tableCell-${user.id}`}
+									>
 										<Checkbox color="default" />
-										{user.firstName + " "}
-										{user.lastName}
+										{`${user.firstName} ${user.lastName}`}
 									</TableBodyCellStyled>
-									<TableBodyCellStyled>{user.emailAddress}</TableBodyCellStyled>
+									<TableBodyCellStyled
+										data-test-id={`email-tableCell-${user.id}`}
+									>
+										{user.emailAddress}
+									</TableBodyCellStyled>
 									<TableBodyCellStyled>{user.dateCreated}</TableBodyCellStyled>
 									<TableBodyCellStyled>{user.dateModified}</TableBodyCellStyled>
 								</TableRow>
-							</TableBody>
-						))}
+							))}
+					</TableBody>
 				</TableStyled>
 			</TableContainerStyled>
 		</Container>
 	)
 }
+
+export default UsersList

@@ -16,7 +16,7 @@ const TabContextStyled = styled(TabContext)`
 	flex-grow: 1;
 `
 
-export default function NavBar() {
+export const NavBar = () => {
 	const [tabIndex, setTabIndex] = useState(String(1))
 
 	return (
@@ -34,3 +34,5 @@ export default function NavBar() {
 		</TabContextStyled>
 	)
 }
+
+export default NavBar
