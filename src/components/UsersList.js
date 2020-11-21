@@ -46,9 +46,13 @@ export const UsersList = () => {
 					<TableHead>
 						<TableRow>
 							<TableHeadCellStyled>Name</TableHeadCellStyled>
-							<TableHeadCellStyled>Email</TableHeadCellStyled>
-							<TableHeadCellStyled>Date Created</TableHeadCellStyled>
-							<TableHeadCellStyled>Date Modified</TableHeadCellStyled>
+							<TableHeadCellStyled align="right">Email</TableHeadCellStyled>
+							<TableHeadCellStyled align="right">
+								Date Created
+							</TableHeadCellStyled>
+							<TableHeadCellStyled align="right">
+								Date Modified
+							</TableHeadCellStyled>
 						</TableRow>
 					</TableHead>
 					<TableBody>
@@ -64,12 +68,17 @@ export const UsersList = () => {
 										{`${user.firstName} ${user.lastName}`}
 									</TableBodyCellStyled>
 									<TableBodyCellStyled
+										align="right"
 										data-test-id={`email-tableCell-${user.id}`}
 									>
 										{user.emailAddress}
 									</TableBodyCellStyled>
-									<TableBodyCellStyled>{user.dateCreated}</TableBodyCellStyled>
-									<TableBodyCellStyled>{user.dateModified}</TableBodyCellStyled>
+									<TableBodyCellStyled align="right">
+										{user.dateCreated}
+									</TableBodyCellStyled>
+									<TableBodyCellStyled align="right">
+										{user.dateModified}
+									</TableBodyCellStyled>
 								</TableRow>
 							))}
 					</TableBody>
