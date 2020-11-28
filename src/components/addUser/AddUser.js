@@ -1,15 +1,17 @@
 import React, { useState } from "react"
-import Container from "@material-ui/core/Container"
-import TextField from "@material-ui/core/TextField"
-import Button from "@material-ui/core/Button"
 import styled from "styled-components"
-import { InputLabel } from "@material-ui/core"
-import FormGroup from "@material-ui/core/FormGroup"
-import FormControl from "@material-ui/core/FormControl"
+import {
+	FormControl,
+	FormGroup,
+	InputLabel,
+	Button,
+	TextField,
+	Container,
+} from "@material-ui/core"
 import { useDispatch } from "react-redux"
 import uuid from "react-uuid"
 
-import { ADD_USER } from "../state"
+import { ADD_USER } from "../../state"
 
 const ContainerStyled = styled(Container)`
 	flex-grow: 1;

@@ -1,11 +1,10 @@
 import React, { useState } from "react"
 import styled from "styled-components"
-import Fab from "@material-ui/core/Fab"
-import Dialog from "@material-ui/core/Dialog"
-import AddIcon from "@material-ui/icons/Add"
+import { Dialog, Fab } from "@material-ui/core"
+import { Add as AddIcon } from "@material-ui/icons"
 
-import UsersList from "./UsersList"
-import AddUser from "./AddUser"
+import { UsersList } from "../usersList"
+import { AddUser } from "../addUser"
 
 const FabStyled = styled(Fab)`
 	position: absolute;

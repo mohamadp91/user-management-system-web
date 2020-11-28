@@ -1,12 +1,9 @@
 import React, { useState } from "react"
-import AppBar from "@material-ui/core/AppBar"
-import Tab from "@material-ui/core/Tab"
-import TabContext from "@material-ui/lab/TabContext"
-import TabList from "@material-ui/lab/TabList"
+import { Tab, AppBar } from "@material-ui/core"
+import { TabPanel, TabList, TabContext } from "@material-ui/lab"
 import styled from "styled-components"
-import TabPanel from "@material-ui/lab/TabPanel"
 
-import UsersTab from "./UsersTab"
+import { UsersTab } from "../usersTab"
 
 const AppBarStyled = styled(AppBar)`
 	background: #222;

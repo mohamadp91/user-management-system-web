@@ -4,6 +4,7 @@ import { Provider } from "react-redux"
 import { store } from "./state"
 import { GlobalStyle } from "./style"
 import { StylesProvider } from "@material-ui/core/styles"
+
 import { NavBar } from "./components"
 
 const App = () => {
