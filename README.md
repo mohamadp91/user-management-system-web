@@ -66,3 +66,8 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/de
 ### `yarn build` fails to minify
 
 This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+
+## Production deployment
+
+For creating a production ready build run command `docker-compose up`, if the build succeeds, then it's read to be deployed to production.
+This command also runs cypress end to end integration tests, before pushing the build to production it's better to make sure that all of them pass, if not the build will fail, but if the webapp image build passes, it still can be deployed to production.

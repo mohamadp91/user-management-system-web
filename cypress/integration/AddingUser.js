@@ -1,5 +1,3 @@
-/* global cy */
-
 describe("Adding users", () => {
 	it("Should add a user to the users table", () => {
 		cy.visit("/")

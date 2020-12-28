@@ -20,6 +20,10 @@
         "useTabs": true
       }
     ]
+  },
+  "globals": {
+    "cy": true,
+    "Cypress": true
   }
 }
 
