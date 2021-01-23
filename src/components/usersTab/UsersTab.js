@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import styled from "styled-components"
 import { Dialog, Fab } from "@material-ui/core"
-import { Add as AddIcon, Clear as ClearIcon } from "@material-ui/icons"
+import { Add as AddIcon } from "@material-ui/icons"
 import { useSelector } from "react-redux"
 
 import { UsersList } from "../usersList"
@@ -14,18 +14,16 @@ const FabStyled = styled(Fab)`
 `
 
 const EmptyUsersListContainer = styled.div`
-	text-align: center;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin-top: 100px;
 `
-
-const FabClearStyled = styled(Fab)`
-	margin-left: 10px;
-`
-
-const NO_USER = "no user"
 
 export const UsersTab = () => {
 	const [showDialog, setShowDialog] = useState(false)
 	const users = useSelector((users) => users)
+	const NO_USER = "No user ! click on the button below to add a user "
 
 	return users ? (
 		<>
@@ -44,13 +42,13 @@ export const UsersTab = () => {
 	) : (
 		<EmptyUsersListContainer>
 			{NO_USER}
-			<FabClearStyled
+			<Fab
 				onClick={() => setShowDialog(true)}
-				color="secondary"
+				color="primary"
 				data-test-id="fab-button"
 			>
-				<ClearIcon />
-			</FabClearStyled>
+				<AddIcon />
+			</Fab>
 			<Dialog open={showDialog}>
 				<AddUser handleCancel={() => setShowDialog(false)} />
 			</Dialog>
