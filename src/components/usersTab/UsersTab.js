@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import styled from "styled-components"
-import { Dialog, Fab } from "@material-ui/core"
+import { Dialog, Fab, Container } from "@material-ui/core"
 import { Add as AddIcon } from "@material-ui/icons"
 import { useSelector } from "react-redux"
 
@@ -25,34 +25,39 @@ export const UsersTab = () => {
 	const users = useSelector((users) => users)
 	const NO_USER = "No user ! click on the button below to add a user "
 
-	return users ? (
+	return (
 		<>
-			<UsersList />
-			<FabStyled
-				onClick={() => setShowDialog(true)}
-				color="primary"
-				data-test-id="fab-button"
-			>
-				<AddIcon />
-			</FabStyled>
-			<Dialog open={showDialog}>
-				<AddUser handleCancel={() => setShowDialog(false)} />
-			</Dialog>
+			<input type="hidden" data-test-id="users-list" value={users} />
+			{users ? (
+				<>
+					<UsersList />
+					<FabStyled
+						onClick={() => setShowDialog(true)}
+						color="primary"
+						data-test-id="fab-button"
+					>
+						<AddIcon />
+					</FabStyled>
+					<Dialog open={showDialog}>
+						<AddUser handleCancel={() => setShowDialog(false)} />
+					</Dialog>
+				</>
+			) : (
+				<EmptyUsersListContainer data-test-id="empty-usersList">
+					{NO_USER}
+					<Fab
+						onClick={() => setShowDialog(true)}
+						color="primary"
+						data-test-id="fab-button-empty-list"
+					>
+						<AddIcon />
+					</Fab>
+					<Dialog open={showDialog}>
+						<AddUser handleCancel={() => setShowDialog(false)} />
+					</Dialog>
+				</EmptyUsersListContainer>
+			)}
 		</>
-	) : (
-		<EmptyUsersListContainer>
-			{NO_USER}
-			<Fab
-				onClick={() => setShowDialog(true)}
-				color="primary"
-				data-test-id="fab-button"
-			>
-				<AddIcon />
-			</Fab>
-			<Dialog open={showDialog}>
-				<AddUser handleCancel={() => setShowDialog(false)} />
-			</Dialog>
-		</EmptyUsersListContainer>
 	)
 }
 
