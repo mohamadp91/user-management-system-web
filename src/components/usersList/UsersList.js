@@ -8,7 +8,10 @@ import {
 	TableCell,
 	TableBody,
 	Table,
+	Fab,
 } from "@material-ui/core"
+import DeleteIcon from "@material-ui/icons/Delete"
+
 import styled from "styled-components"
 import { useSelector } from "react-redux"
 
@@ -36,6 +39,12 @@ const Container = styled.div`
 	display: flex;
 	align-items: center;
 	justify-content: center;
+`
+
+const FabDeleteStyled = styled(Fab)`
+	position: absolute;
+	left: 16px;
+	bottom: 16px;
 `
 
 export const UsersList = () => {
@@ -86,6 +95,9 @@ export const UsersList = () => {
 					</TableBody>
 				</TableStyled>
 			</TableContainerStyled>
+			<FabDeleteStyled color="secondary" variant="round">
+				<DeleteIcon />
+			</FabDeleteStyled>
 		</Container>
 	)
 }
