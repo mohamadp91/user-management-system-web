@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import styled from "styled-components"
-import { Dialog, Fab, Container } from "@material-ui/core"
+import { Dialog, Fab } from "@material-ui/core"
 import { Add as AddIcon } from "@material-ui/icons"
 import { useSelector } from "react-redux"
 
@@ -18,6 +18,11 @@ const EmptyUsersListContainer = styled.div`
 	flex-direction: column;
 	align-items: center;
 	margin-top: 100px;
+	font-size: x-large;
+`
+
+const FabEmptyListStyled = styled(Fab)`
+	margin-top: 40px;
 `
 
 export const UsersTab = () => {
@@ -25,39 +30,34 @@ export const UsersTab = () => {
 	const users = useSelector((users) => users)
 	const NO_USER = "No user ! click on the button below to add a user "
 
-	return (
+	return users ? (
 		<>
-			<input type="hidden" data-test-id="users-list" value={users} />
-			{users ? (
-				<>
-					<UsersList />
-					<FabStyled
-						onClick={() => setShowDialog(true)}
-						color="primary"
-						data-test-id="fab-button"
-					>
-						<AddIcon />
-					</FabStyled>
-					<Dialog open={showDialog}>
-						<AddUser handleCancel={() => setShowDialog(false)} />
-					</Dialog>
-				</>
-			) : (
-				<EmptyUsersListContainer data-test-id="empty-usersList">
-					{NO_USER}
-					<Fab
-						onClick={() => setShowDialog(true)}
-						color="primary"
-						data-test-id="fab-button-empty-list"
-					>
-						<AddIcon />
-					</Fab>
-					<Dialog open={showDialog}>
-						<AddUser handleCancel={() => setShowDialog(false)} />
-					</Dialog>
-				</EmptyUsersListContainer>
-			)}
+			<UsersList />
+			<FabStyled
+				onClick={() => setShowDialog(true)}
+				color="primary"
+				data-test-id="fab-button"
+			>
+				<AddIcon />
+			</FabStyled>
+			<Dialog open={showDialog}>
+				<AddUser handleCancel={() => setShowDialog(false)} />
+			</Dialog>
 		</>
+	) : (
+		<EmptyUsersListContainer data-test-id="empty-usersList">
+			{NO_USER}
+			<FabEmptyListStyled
+				onClick={() => setShowDialog(true)}
+				color="primary"
+				data-test-id="fab-button-empty-list"
+			>
+				<AddIcon />
+			</FabEmptyListStyled>
+			<Dialog open={showDialog}>
+				<AddUser handleCancel={() => setShowDialog(false)} />
+			</Dialog>
+		</EmptyUsersListContainer>
 	)
 }
 
