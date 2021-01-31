@@ -119,6 +119,9 @@ export const AddUser = ({ handleCancel }) => {
 					/>
 				</FormControlStyled>
 				<FormControlButtonStyled>
+					<Button onClick={cancel} variant="contained" color="secondary">
+						Close
+					</Button>
 					<Button
 						onClick={handleSubmit}
 						variant="contained"
@@ -127,9 +130,6 @@ export const AddUser = ({ handleCancel }) => {
 						data-test-id="add"
 					>
 						Add
-					</Button>
-					<Button onClick={cancel} variant="contained" color="secondary">
-						Close
 					</Button>
 				</FormControlButtonStyled>
 			</FormGroupStyled>
