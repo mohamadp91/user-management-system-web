@@ -1,6 +1,7 @@
 import { createStore, applyMiddleware } from "redux"
 
 export const ADD_USER = "ADD_USER"
+export const DELETE_USER = "DELETE_USER"
 
 export const store = createStore(
 	(state, { type, payload }) => {
@@ -8,6 +9,8 @@ export const store = createStore(
 			case ADD_USER:
 				if (!state) return (state = [payload])
 				return (state = [...state, payload])
+			case DELETE_USER:
+				return state.filter((user) => user.id !== payload)
 			default:
 				return state
 		}
