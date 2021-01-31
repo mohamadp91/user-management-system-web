@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import {
 	Checkbox,
 	Paper,
@@ -8,12 +8,14 @@ import {
 	TableCell,
 	TableBody,
 	Table,
-	Fab,
+	Button,
+	Dialog,
 } from "@material-ui/core"
 import DeleteIcon from "@material-ui/icons/Delete"
-
 import styled from "styled-components"
 import { useSelector } from "react-redux"
+
+import { DeleteUser } from "../deleteUser"
 
 const TableHeadCellStyled = styled(TableCell)`
 	background: #ced2aa;
@@ -41,14 +43,15 @@ const Container = styled.div`
 	justify-content: center;
 `
 
-const FabDeleteStyled = styled(Fab)`
-	position: absolute;
-	left: 16px;
-	bottom: 16px;
-`
-
 export const UsersList = () => {
 	const users = useSelector((users) => users)
+	const [showDialog, setShowDialog] = useState(false)
+	const [selectedUser, setSelectedUser] = useState()
+
+	const handleDelete = (id) => {
+		setShowDialog(true)
+		setSelectedUser(id)
+	}
 
 	return (
 		<Container>
@@ -61,9 +64,7 @@ export const UsersList = () => {
 							<TableHeadCellStyled align="right">
 								Date Created
 							</TableHeadCellStyled>
-							<TableHeadCellStyled align="right">
-								Date Modified
-							</TableHeadCellStyled>
+							<TableHeadCellStyled align="right"></TableHeadCellStyled>
 						</TableRow>
 					</TableHead>
 					<TableBody>
@@ -88,16 +89,21 @@ export const UsersList = () => {
 										{user.dateCreated}
 									</TableBodyCellStyled>
 									<TableBodyCellStyled align="right">
-										{user.dateModified}
+										<Button onClick={() => handleDelete(user.id)}>
+											<DeleteIcon />
+										</Button>
+										<Dialog open={showDialog}>
+											<DeleteUser
+												cancel={() => setShowDialog(false)}
+												userId={selectedUser}
+											/>
+										</Dialog>
 									</TableBodyCellStyled>
 								</TableRow>
 							))}
 					</TableBody>
 				</TableStyled>
 			</TableContainerStyled>
-			<FabDeleteStyled color="secondary" variant="round">
-				<DeleteIcon />
-			</FabDeleteStyled>
 		</Container>
 	)
 }
