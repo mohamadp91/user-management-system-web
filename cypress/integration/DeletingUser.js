@@ -5,6 +5,8 @@ describe("Deleting users", () => {
 		const lastName = "something"
 		const email = "something"
 
+		const NO_USER = "No user ! click on the button below to add a user"
+
 		cy.findByTestId("fab-button-empty-list").click()
 
 		cy.findByTestId("id").then(($element) => {
@@ -24,11 +26,7 @@ describe("Deleting users", () => {
 			cy.findByTestId("delete-dialog").click()
 			cy.findByTestId("delete").click()
 
-			cy.findByTestId("table-body").should(
-				"not.contain",
-				firstName + " " + lastName
-			)
-			cy.findByTestId("table-body").should("not.contain", email)
+			cy.findByTestId("empty-usersList").should("contain", NO_USER)
 		})
 	})
 })
