@@ -40,6 +40,7 @@ export const DeleteUser = ({ cancel, userId }) => {
 						onClick={() => deleteUser()}
 						variant="contained"
 						color="primary"
+						data-test-id="delete"
 					>
 						Ok
 					</Button>
