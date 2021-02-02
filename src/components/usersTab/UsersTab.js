@@ -30,39 +30,35 @@ export const UsersTab = () => {
 	const users = useSelector((users) => users)
 	const NO_USER = "No user ! click on the button below to add a user "
 
-	if (users === null || users.length === 0) {
-		return (
-			<EmptyUsersListContainer data-test-id="empty-usersList">
-				{NO_USER}
-				<FabEmptyListStyled
-					onClick={() => setShowDialog(true)}
-					color="primary"
-					data-test-id="fab-button-empty-list"
-				>
-					<AddIcon />
-				</FabEmptyListStyled>
-				<Dialog open={showDialog}>
-					<AddUser handleCancel={() => setShowDialog(false)} />
-				</Dialog>
-			</EmptyUsersListContainer>
-		)
-	} else {
-		return (
-			<>
-				<UsersList />
-				<FabStyled
-					onClick={() => setShowDialog(true)}
-					color="primary"
-					data-test-id="fab-button"
-				>
-					<AddIcon />
-				</FabStyled>
-				<Dialog open={showDialog}>
-					<AddUser handleCancel={() => setShowDialog(false)} />
-				</Dialog>
-			</>
-		)
-	}
+	return users ? (
+		<>
+			<UsersList />
+			<FabStyled
+				onClick={() => setShowDialog(true)}
+				color="primary"
+				data-test-id="fab-button"
+			>
+				<AddIcon />
+			</FabStyled>
+			<Dialog open={showDialog}>
+				<AddUser handleCancel={() => setShowDialog(false)} />
+			</Dialog>
+		</>
+	) : (
+		<EmptyUsersListContainer data-test-id="empty-usersList">
+			{NO_USER}
+			<FabEmptyListStyled
+				onClick={() => setShowDialog(true)}
+				color="primary"
+				data-test-id="fab-button-empty-list"
+			>
+				<AddIcon />
+			</FabEmptyListStyled>
+			<Dialog open={showDialog}>
+				<AddUser handleCancel={() => setShowDialog(false)} />
+			</Dialog>
+		</EmptyUsersListContainer>
+	)
 }
 
 export default UsersTab
