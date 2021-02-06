@@ -1,19 +1,28 @@
 version: '3.7'
 
 services:
-  webapp:
+  builder:
     build:
       context: ./
-      target: app
-    image: webapp-image
+      target: builder
+    image: builder-image
+  nginx:
+    build:
+      context: ./
+      target: nginx
+    image: nginx
+    ports:
+      - 3000:80
+    depends_on:
+      - builder
   cypress:
     build:
       context: ./
       target: test-runner
     image: cypress-test-runner
     depends_on:
-      - webapp
+      - nginx
     environment:
-      - CYPRESS_baseUrl=http://webapp:3000
-      - BASE_IMAGE=webapp-image
+      - CYPRESS_baseUrl=http://nginx:80
+      - BASE_IMAGE=builder-image
     working_dir: /app
