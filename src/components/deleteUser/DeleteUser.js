@@ -20,12 +20,12 @@ const FormControlButtonStyled = styled(FormControl)`
 	justify-content: space-between;
 `
 
-export const DeleteUser = ({ cancel, userIndex }) => {
+export const DeleteUser = ({ cancel, userId }) => {
 	const CONFIRMATION_MESSAGE = "Are you sure you want to delete this user ?"
 	const dispatch = useDispatch()
 
 	const deleteUser = () => {
-		dispatch({ type: DELETE_USER, payload: userIndex })
+		dispatch({ type: DELETE_USER, payload: userId })
 		cancel()
 	}
 	return (

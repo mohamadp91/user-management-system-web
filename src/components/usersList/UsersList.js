@@ -69,7 +69,7 @@ export const UsersList = () => {
 					</TableHead>
 					<TableBody data-test-id="table-body">
 						{users &&
-							users.map((user, index) => (
+							users.map((user) => (
 								<TableRow key={user.id}>
 									<TableBodyCellStyled
 										component="th"
@@ -90,7 +90,7 @@ export const UsersList = () => {
 									</TableBodyCellStyled>
 									<TableBodyCellStyled align="right">
 										<Button
-											onClick={() => handleDelete(index)}
+											onClick={() => handleDelete(user.id)}
 											data-test-id="delete-dialog"
 										>
 											<DeleteIcon />
@@ -98,7 +98,7 @@ export const UsersList = () => {
 										<Dialog open={showDialog}>
 											<DeleteUser
 												cancel={() => setShowDialog(false)}
-												userIndex={selectedUser}
+												userId={selectedUser}
 											/>
 										</Dialog>
 									</TableBodyCellStyled>
