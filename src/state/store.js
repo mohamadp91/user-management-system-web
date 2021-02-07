@@ -10,8 +10,9 @@ export const store = createStore(
 				if (!state) return (state = [payload])
 				return (state = [...state, payload])
 			case DELETE_USER:
-				if (state.length === 1) return (state = null)
-				return (state = state.filter((user) => user.id !== payload))
+				state = state.filter((user) => user.id !== payload)
+				if (state.length === 0) return (state = null)
+				return state
 			default:
 				return state
 		}
