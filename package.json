@@ -1,6 +1,7 @@
 {
   "name": "react-project",
   "version": "0.1.0",
+  "homepage": "https://beiranvand-karim.github.io/user-tracker",
   "private": true,
   "dependencies": {
     "@material-ui/core": "^4.11.0",
@@ -24,7 +25,9 @@
     "format": "fix pretty/prettier",
     "cypress:open": "cypress open",
     "cypress:run": "cypress run",
-    "serve": "serve -s build -l 3000"
+    "serve": "serve -s build -l 3000",
+    "predeploy": "react-scripts build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -54,6 +57,7 @@
     "eslint-plugin-prettier": "^3.1.4",
     "eslint-plugin-react": "7.20.0",
     "eslint-plugin-react-hooks": "4",
+    "gh-pages": "^3.1.0",
     "prettier": "^2.1.2"
   }
 }
