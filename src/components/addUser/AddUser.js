@@ -45,6 +45,7 @@ const FormControlButtonStyled = styled(FormControl)`
 const ErrorParagraph = styled.p`
 	margin-top: 10px;
 	color: red;
+	font-size: 12px;
 `
 const nullToEmpty = (value) => value || String()
 
@@ -57,6 +58,8 @@ export const AddUser = ({ handleCancel }) => {
 	// eslint-disable-next-line no-unused-vars
 	const [id, setId] = useState(nullToEmpty(uuid()))
 	const dispatch = useDispatch()
+
+	const requiredFieldError = "This field is required"
 
 	const { handleSubmit, register, errors } = useForm()
 
@@ -93,11 +96,8 @@ export const AddUser = ({ handleCancel }) => {
 					data-id={id}
 					value={id}
 				/>
-				<FormControlStyled>
+				<FormControlStyled data-test-id="firstName-formControl">
 					<InputLabelStyled>First name</InputLabelStyled>
-					{errors.firstName && (
-						<ErrorParagraph>please enter your firstname</ErrorParagraph>
-					)}
 					<TextFieldStyled
 						value={nullToEmpty(firstName)}
 						variant="outlined"
@@ -106,12 +106,12 @@ export const AddUser = ({ handleCancel }) => {
 						data-test-id="firstName-textField"
 						inputRef={register({ required: true })}
 					/>
-				</FormControlStyled>
-				<FormControlStyled>
-					<InputLabelStyled>Last name</InputLabelStyled>
-					{errors.lastName && (
-						<ErrorParagraph>please enter your lastname</ErrorParagraph>
+					{errors.firstName && (
+						<ErrorParagraph>{requiredFieldError}</ErrorParagraph>
 					)}
+				</FormControlStyled>
+				<FormControlStyled data-test-id="lastName-formControl">
+					<InputLabelStyled>Last name</InputLabelStyled>
 					<TextFieldStyled
 						value={nullToEmpty(lastName)}
 						variant="outlined"
@@ -120,12 +120,12 @@ export const AddUser = ({ handleCancel }) => {
 						data-test-id="lastName-textField"
 						inputRef={register({ required: true })}
 					/>
-				</FormControlStyled>
-				<FormControlStyled>
-					<InputLabelStyled>Email</InputLabelStyled>
-					{errors.emailAddress && (
-						<ErrorParagraph>please enter your email</ErrorParagraph>
+					{errors.lastName && (
+						<ErrorParagraph>{requiredFieldError}</ErrorParagraph>
 					)}
+				</FormControlStyled>
+				<FormControlStyled data-test-id="emailAddress-formControl">
+					<InputLabelStyled>Email</InputLabelStyled>
 					<TextFieldStyled
 						value={nullToEmpty(emailAddress)}
 						variant="outlined"
@@ -134,6 +134,9 @@ export const AddUser = ({ handleCancel }) => {
 						data-test-id="email-textField"
 						inputRef={register({ required: true })}
 					/>
+					{errors.emailAddress && (
+						<ErrorParagraph>{requiredFieldError}</ErrorParagraph>
+					)}
 				</FormControlStyled>
 				<FormControlButtonStyled>
 					<Button onClick={cancel} variant="contained" color="secondary">
