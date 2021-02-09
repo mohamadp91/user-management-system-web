@@ -71,3 +71,7 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/tr
 
 For creating a production ready build run command `docker-compose up`, if the build succeeds, then it's read to be deployed to production.
 This command also runs cypress end to end integration tests, before pushing the build to production it's better to make sure that all of them pass, if not the build will fail, but if the webapp image build passes, it still can be deployed to production.
+
+### Viewing The Interactive Cypress Test Runner In Docker
+Run `xhost +` or  `xhost +local:` in your terminal to ensure correct permissions are set
+then run `docker-compose up --detach`.

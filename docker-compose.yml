@@ -20,9 +20,12 @@ services:
       context: ./
       target: test-runner
     image: cypress-test-runner
+    working_dir: /app
     depends_on:
       - nginx
+    network_mode: host
     environment:
-      - CYPRESS_baseUrl=http://nginx:80
+      - CYPRESS_baseUrl=http://localhost:3000
       - BASE_IMAGE=builder-image
-    working_dir: /app
+      - DISPLAY
+    entrypoint: cypress open --project /app

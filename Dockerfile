@@ -8,7 +8,6 @@ RUN yarn install && yarn build && rm -rf src
 FROM cypress/included:6.2.0 as test-runner
 WORKDIR /app
 COPY --from=builder /usr/src/app /app
-ENTRYPOINT ["sh", "-c", "cypress run"]
 
 FROM nginx:alpine as nginx
 WORKDIR /usr/share/nginx/html
