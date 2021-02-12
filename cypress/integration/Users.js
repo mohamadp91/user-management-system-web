@@ -100,4 +100,25 @@ describe("Adding and deleting users", () => {
 			cy.findByTestId("empty-usersList").should("contain", NO_USER)
 		})
 	})
+	it("Should validate form", () => {
+		cy.visit("/")
+
+		const requiredFieldError = "This field is required"
+
+		cy.findByTestId("fab-button-empty-list").click()
+		cy.findByTestId("add").click()
+
+		cy.findByTestId("firstName-formControl").should(
+			"contain",
+			requiredFieldError
+		)
+		cy.findByTestId("lastName-formControl").should(
+			"contain",
+			requiredFieldError
+		)
+		cy.findByTestId("emailAddress-formControl").should(
+			"contain",
+			requiredFieldError
+		)
+	})
 })

@@ -10,6 +10,7 @@ import {
 } from "@material-ui/core"
 import { useDispatch } from "react-redux"
 import uuid from "react-uuid"
+import { useForm } from "react-hook-form"
 
 import { ADD_USER } from "../../state"
 
@@ -41,7 +42,11 @@ const FormControlButtonStyled = styled(FormControl)`
 	flex-direction: row;
 	justify-content: space-between;
 `
-
+const ErrorParagraph = styled.p`
+	margin-top: 10px;
+	color: red;
+	font-size: 12px;
+`
 const nullToEmpty = (value) => value || String()
 
 export const AddUser = ({ handleCancel }) => {
@@ -53,6 +58,10 @@ export const AddUser = ({ handleCancel }) => {
 	// eslint-disable-next-line no-unused-vars
 	const [id, setId] = useState(nullToEmpty(uuid()))
 	const dispatch = useDispatch()
+
+	const requiredFieldError = "This field is required"
+
+	const { handleSubmit, register, errors } = useForm()
 
 	const clearUserInputs = () => {
 		setFirstName(null)
@@ -66,7 +75,7 @@ export const AddUser = ({ handleCancel }) => {
 		handleCancel()
 	}
 
-	const handleSubmit = () => {
+	const onSubmit = () => {
 		const user = {
 			firstName: nullToEmpty(firstName),
 			lastName: nullToEmpty(lastName),
@@ -77,7 +86,6 @@ export const AddUser = ({ handleCancel }) => {
 		dispatch({ type: ADD_USER, payload: user })
 		cancel()
 	}
-
 	return (
 		<ContainerStyled>
 			<FormGroupStyled>
@@ -88,7 +96,7 @@ export const AddUser = ({ handleCancel }) => {
 					data-id={id}
 					value={id}
 				/>
-				<FormControlStyled>
+				<FormControlStyled data-test-id="firstName-formControl">
 					<InputLabelStyled>First name</InputLabelStyled>
 					<TextFieldStyled
 						value={nullToEmpty(firstName)}
@@ -96,9 +104,13 @@ export const AddUser = ({ handleCancel }) => {
 						name="firstName"
 						onChange={({ target: { value } }) => setFirstName(value)}
 						data-test-id="firstName-textField"
+						inputRef={register({ required: true })}
 					/>
+					{errors.firstName && (
+						<ErrorParagraph>{requiredFieldError}</ErrorParagraph>
+					)}
 				</FormControlStyled>
-				<FormControlStyled>
+				<FormControlStyled data-test-id="lastName-formControl">
 					<InputLabelStyled>Last name</InputLabelStyled>
 					<TextFieldStyled
 						value={nullToEmpty(lastName)}
@@ -106,9 +118,13 @@ export const AddUser = ({ handleCancel }) => {
 						name="lastName"
 						onChange={({ target: { value } }) => setLastName(value)}
 						data-test-id="lastName-textField"
+						inputRef={register({ required: true })}
 					/>
+					{errors.lastName && (
+						<ErrorParagraph>{requiredFieldError}</ErrorParagraph>
+					)}
 				</FormControlStyled>
-				<FormControlStyled>
+				<FormControlStyled data-test-id="emailAddress-formControl">
 					<InputLabelStyled>Email</InputLabelStyled>
 					<TextFieldStyled
 						value={nullToEmpty(emailAddress)}
@@ -116,14 +132,18 @@ export const AddUser = ({ handleCancel }) => {
 						name="emailAddress"
 						onChange={({ target: { value } }) => setEmailAddress(value)}
 						data-test-id="email-textField"
+						inputRef={register({ required: true })}
 					/>
+					{errors.emailAddress && (
+						<ErrorParagraph>{requiredFieldError}</ErrorParagraph>
+					)}
 				</FormControlStyled>
 				<FormControlButtonStyled>
 					<Button onClick={cancel} variant="contained" color="secondary">
 						Close
 					</Button>
 					<Button
-						onClick={handleSubmit}
+						onClick={handleSubmit(onSubmit)}
 						variant="contained"
 						color="primary"
 						type="submit"
