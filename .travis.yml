@@ -13,9 +13,11 @@ install:
   - yarn install --frozen-lockfile
   - yarn cypress install
   - yarn cypress verify
-  - yarn add wait-on
+  - yarn add dlx wait-on
+  - yarn add dlx @testing-library/cypress
 script:
+  - yarn install
   - yarn build
   - yarn add serve
-  - yarn serve & wait-on http://localhost:3000
-  - cypress run
+  - yarn serve & yarn wait-on http://localhost:3000
+  - yarn cypress run
