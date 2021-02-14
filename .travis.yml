@@ -5,16 +5,13 @@ sudo: required
 
 cache:
   directories:
-    - ~/.cache/nodejs
-    - ~/.cache/yarn
-    - ~/.cache/Cypress
+    - ./.yarn/cache
 
 install:
   - yarn install --frozen-lockfile
   - yarn cypress install
   - yarn cypress verify
   - yarn add dlx wait-on
-  - yarn add dlx @testing-library/cypress
 script:
   - yarn install
   - yarn build
