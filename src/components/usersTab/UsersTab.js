@@ -1,11 +1,12 @@
-import React, { useState } from "react"
+import React, { useState, useEffect, useCallback } from "react"
 import styled from "styled-components"
 import { Dialog, Fab } from "@material-ui/core"
 import { Add as AddIcon } from "@material-ui/icons"
-import { useSelector } from "react-redux"
+import { useSelector, useDispatch } from "react-redux"
 
 import { UsersList } from "../usersList"
 import { AddUser } from "../addUser"
+import { REQUEST_FETCH_USERS } from "../../state"
 
 const FabStyled = styled(Fab)`
 	position: absolute;
@@ -29,6 +30,15 @@ export const UsersTab = () => {
 	const [showDialog, setShowDialog] = useState(false)
 	const users = useSelector((users) => users)
 	const NO_USER = "No user ! click on the button below to add a user "
+	const dispatch = useDispatch()
+
+	const initFetch = useCallback(() => {
+		dispatch({ type: REQUEST_FETCH_USERS })
+	}, [dispatch])
+
+	useEffect(() => {
+		initFetch()
+	}, [initFetch])
 
 	return users ? (
 		<>

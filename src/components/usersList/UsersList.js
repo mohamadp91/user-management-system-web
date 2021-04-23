@@ -62,7 +62,7 @@ export const UsersList = () => {
 							<TableHeadCellStyled>Name</TableHeadCellStyled>
 							<TableHeadCellStyled align="right">Email</TableHeadCellStyled>
 							<TableHeadCellStyled align="right">
-								Date Created
+								Creation Time
 							</TableHeadCellStyled>
 							<TableHeadCellStyled align="right"></TableHeadCellStyled>
 						</TableRow>
@@ -86,7 +86,7 @@ export const UsersList = () => {
 										{user.emailAddress}
 									</TableBodyCellStyled>
 									<TableBodyCellStyled align="right">
-										{user.dateCreated}
+										{user.creationTime}
 									</TableBodyCellStyled>
 									<TableBodyCellStyled align="right">
 										<Button

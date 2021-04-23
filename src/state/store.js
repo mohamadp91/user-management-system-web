@@ -1,7 +1,10 @@
 import { createStore, applyMiddleware } from "redux"
+import createSagaMiddleware from "redux-saga"
 
-export const ADD_USER = "ADD_USER"
-export const DELETE_USER = "DELETE_USER"
+import UsersSaga from "./Sagas"
+import { DELETE_USER, ADD_USER } from "./actions"
+
+const sagaMiddleWare = createSagaMiddleware()
 
 export const store = createStore(
 	(state, { type, payload }) => {
@@ -20,11 +23,9 @@ export const store = createStore(
 		}
 	},
 	null,
-	applyMiddleware(() => {
-		return (next) => (action) => {
-			return next(action)
-		}
-	})
+	applyMiddleware(sagaMiddleWare)
 )
+
+sagaMiddleWare.run(UsersSaga)
 
 export default store

@@ -12,7 +12,7 @@ import { useDispatch } from "react-redux"
 import uuid from "react-uuid"
 import { useForm } from "react-hook-form"
 
-import { ADD_USER } from "../../state"
+import { REQUEST_ADD_USER } from "../../state"
 
 const ContainerStyled = styled(Container)`
 	flex-grow: 1;
@@ -54,7 +54,7 @@ export const AddUser = ({ handleCancel }) => {
 	const [lastName, setLastName] = useState(null)
 	const [emailAddress, setEmailAddress] = useState(null)
 	// eslint-disable-next-line no-unused-vars
-	const [dateCreated, setDateCreated] = useState(null)
+	const [creationTime, setCreationTime] = useState(null)
 	// eslint-disable-next-line no-unused-vars
 	const [id, setId] = useState(nullToEmpty(uuid()))
 	const dispatch = useDispatch()
@@ -67,7 +67,7 @@ export const AddUser = ({ handleCancel }) => {
 		setFirstName(null)
 		setLastName(null)
 		setEmailAddress(null)
-		setDateCreated(null)
+		setCreationTime(null)
 	}
 
 	const cancel = () => {
@@ -80,10 +80,10 @@ export const AddUser = ({ handleCancel }) => {
 			firstName: nullToEmpty(firstName),
 			lastName: nullToEmpty(lastName),
 			emailAddress: nullToEmpty(emailAddress),
-			dateCreated: nullToEmpty(new Date().toLocaleString()),
+			creationTime: nullToEmpty(new Date().toLocaleString()),
 			id,
 		}
-		dispatch({ type: ADD_USER, payload: user })
+		dispatch({ type: REQUEST_ADD_USER, payload: user })
 		cancel()
 	}
 	return (
