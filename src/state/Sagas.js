@@ -16,9 +16,6 @@ export function* receiveApiData() {
 		for (let i = 0; i < users.length; i++) {
 			yield put(addUser(users[i]))
 		}
-		// users.forEach((user) => {
-		// 	put(addUser(user))
-		// })
 	} catch (e) {}
 }
 
