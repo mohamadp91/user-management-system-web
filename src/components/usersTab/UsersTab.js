@@ -3,10 +3,13 @@ import styled from "styled-components"
 import { Dialog, Fab } from "@material-ui/core"
 import { Add as AddIcon } from "@material-ui/icons"
 import { useSelector, useDispatch } from "react-redux"
+import env from "@beam-australia/react-env"
 
 import { UsersList } from "../usersList"
 import { AddUser } from "../addUser"
 import { REQUEST_FETCH_USERS } from "../../state"
+import axios from "axios"
+import { ErrorTab } from "../exceptionHandling"
 
 const FabStyled = styled(Fab)`
 	position: absolute;
@@ -28,6 +31,7 @@ const FabEmptyListStyled = styled(Fab)`
 
 export const UsersTab = () => {
 	const [showDialog, setShowDialog] = useState(false)
+	const [connectionError, setConnectionError] = useState(null)
 	const users = useSelector((users) => users)
 	const NO_USER = "No user ! click on the button below to add a user "
 	const dispatch = useDispatch()
@@ -37,10 +41,22 @@ export const UsersTab = () => {
 	}, [dispatch])
 
 	useEffect(() => {
-		initFetch()
+		const checkConnection = axios
+			.get(`${env("API_HOST")}/check_connection`)
+			.catch((err) => {
+				setConnectionError(true)
+			})
+		if (checkConnection.data && checkConnection.data === "alive") {
+			setConnectionError(false)
+			initFetch()
+		}
 	}, [initFetch])
 
-	return users ? (
+	return connectionError ? (
+		<Dialog open={connectionError}>
+			<ErrorTab />
+		</Dialog>
+	) : users ? (
 		<>
 			<UsersList />
 			<FabStyled

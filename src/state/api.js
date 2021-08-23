@@ -1,5 +1,6 @@
 import axios from "axios"
 import env from "@beam-australia/react-env"
+import store from "./store"
 
 export const sendRequestAdduser = async (user) => {
 	try {
@@ -34,6 +35,8 @@ export const requestToFetchUsers = async () => {
 			},
 		}
 		const response = await axios(request)
-		return response.data
+		if (!store.getState()) {
+			return response.data
+		}
 	} catch (e) {}
 }
