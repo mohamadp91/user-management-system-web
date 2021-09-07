@@ -10,8 +10,11 @@ export const store = createStore(
 	(state, { type, payload }) => {
 		switch (type) {
 			case ADD_USER:
-				if (!state) return (state = [payload])
-				return (state = [...state, payload])
+				if (payload.id) {
+					if (!state) return (state = [payload])
+					return (state = [...state, payload])
+				}
+				break
 			case DELETE_USER:
 				const stateAfterUserRemoval = state.filter(
 					({ ...user }) => user.id !== payload
