@@ -1,6 +1,7 @@
 import React from "react"
 import { Card, CircularProgress } from "@material-ui/core"
 import styled from "styled-components"
+import { SERVER_IS_DISCONNECT } from "../../state"
 
 const CardStyled = styled(Card)`
 	display: flex;
@@ -19,13 +20,17 @@ const SpanStyled = styled.div`
 	font-size: 15px;
 `
 
-export const ErrorTab = () => {
+export const ErrorTab = ({ errorMessage }) => {
 	return (
 		<CardStyled>
 			<CircularProgress color="secondary"></CircularProgress>
 			<SpanStyled>
-				Your connection has been lost :( <br />
-				please make sure the server is running and try again later.
+				{errorMessage === SERVER_IS_DISCONNECT
+					? "The Server is down :("
+					: "The database is down :("}
+				<br />
+				please make sure, servers and the database is running and try again
+				later.
 			</SpanStyled>
 		</CardStyled>
 	)

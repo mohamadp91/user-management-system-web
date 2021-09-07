@@ -7,9 +7,10 @@ import env from "@beam-australia/react-env"
 
 import { UsersList } from "../usersList"
 import { AddUser } from "../addUser"
-import { REQUEST_FETCH_USERS } from "../../state"
+import { DATABASE_IS_DISCONNECT, REQUEST_FETCH_USERS } from "../../state"
 import axios from "axios"
 import { ErrorTab } from "../exceptionHandling"
+import { SERVER_IS_DISCONNECT } from "../../state"
 
 const FabStyled = styled(Fab)`
 	position: absolute;
@@ -32,6 +33,7 @@ const FabEmptyListStyled = styled(Fab)`
 export const UsersTab = () => {
 	const [showDialog, setShowDialog] = useState(false)
 	const [connectionError, setConnectionError] = useState(null)
+	const [errorMessage, setErrorMessage] = useState(null)
 	const users = useSelector((users) => users)
 	const NO_USER = "No user ! click on the button below to add a user "
 	const dispatch = useDispatch()
@@ -41,20 +43,32 @@ export const UsersTab = () => {
 	}, [dispatch])
 
 	useEffect(() => {
-		const checkConnection = axios
-			.get(`${env("API_HOST")}/check_connection`)
-			.catch((err) => {
-				setConnectionError(true)
-			})
-		if (checkConnection.data && checkConnection.data === "alive") {
-			setConnectionError(false)
-			initFetch()
+		const fetchRequest = async () => {
+			await axios
+				.get(`${env("API_HOST")}/check_connection`)
+				.then((r) => {
+					if (r.data === SERVER_IS_DISCONNECT) {
+						setConnectionError(true)
+						setErrorMessage(SERVER_IS_DISCONNECT)
+					} else if (r.data === DATABASE_IS_DISCONNECT) {
+						setConnectionError(true)
+						setErrorMessage(DATABASE_IS_DISCONNECT)
+					} else {
+						setConnectionError(false)
+						initFetch()
+					}
+				})
+				.catch((err) => {
+					setConnectionError(true)
+					setErrorMessage(SERVER_IS_DISCONNECT)
+				})
 		}
+		fetchRequest().then((r) => r)
 	}, [initFetch])
 
 	return connectionError ? (
 		<Dialog open={connectionError}>
-			<ErrorTab />
+			<ErrorTab errorMessage={errorMessage} />
 		</Dialog>
 	) : users ? (
 		<>
